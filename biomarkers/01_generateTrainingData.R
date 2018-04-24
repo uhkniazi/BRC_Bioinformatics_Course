@@ -19,7 +19,7 @@ dir.create('dataExternal')
 ## go to https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE37250
 
 # url = 'ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE37nnn/GSE37250/matrix/GSE37250_series_matrix.txt.gz'
-# download(url, destfile='dataExternal/trainingSet.gz')
+# download(url, destfile='dataExternal/GSE37250_series_matrix.txt.gz')
 oExp = getGEO(filename = 'dataExternal/GSE37250_series_matrix.txt.gz')
 ## ignore the warning as it is a bug
 # add lumi nuIDs - converting probe ids to identify genes

@@ -35,7 +35,5 @@ vignettes/*.pdf
 
 # ignore stuff
 dataExternal/
-results/
 temp/
-*.rds
 *.Rproj
