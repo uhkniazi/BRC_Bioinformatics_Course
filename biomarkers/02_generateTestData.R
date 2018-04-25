@@ -158,6 +158,7 @@ gc()
 mData = exprs(oExp)
 range(mData)
 dim(mData)
+set.seed(123)
 i = sample(1:nrow(mData), 2000, replace = F)
 mData = mData[i,]
 ## data has negative values, make positive before further analysis
@@ -185,7 +186,7 @@ table(z2 = l$cluster.label$c2, z1 = l$cluster.label$c1)
 fBatch = factor(ifelse(l$cluster.label$c2 %in% as.character(1:5), 'Batch1', 'Batch2'))
 
 # sanity check
-plot.PCA(oDiag.2.2, fBatch, legend.pos = 'topright', csLabels = '')
+plot.PCA(oDiag.2.2, fBatch, legend.pos = 'top', csLabels = '')
 
 oExp$fBatch = fBatch
 xtabs(~ (oExp$characteristics_ch1.4) + oExp$fBatch + oExp$fSamples)
@@ -197,6 +198,12 @@ plot.sigma.summary(oDiag.2, fBatch, axis.label.cex = 0.7)
 df = pData(oExp)
 f = grepl('PerfectPure', df$extract_protocol_ch1)
 plot.PCA(oDiag.2.2, factor(as.numeric(f)), legend.pos = 'right', csLabels = '')
+
+f = as.character(oExp$extract_protocol_ch1)
+f[grepl('PerfectPure', df$extract_protocol_ch1)] = 'PerfectPure'
+f[!grepl('PerfectPure', df$extract_protocol_ch1)] = 'MagMAX'
+
+table(oExp$fBatch, f)
 
 table(oExp$fBatch, oExp$fSamples)
 rm(mData)
