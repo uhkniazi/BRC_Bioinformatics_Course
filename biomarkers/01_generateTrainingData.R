@@ -1,7 +1,7 @@
 # Name: generateTrainingData.R
 # Auth: umar.niazi@kcl.ac.uk
 # Date: 23/04/2018
-# Desc: generate test data
+# Desc: generate training data
 
 ### libraries to load
 library(GEOquery)
