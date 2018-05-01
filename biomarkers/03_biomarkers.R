@@ -78,29 +78,30 @@ for (i in 1:7){
 }
 
 #### check the performance using 10 fold cross validation
-## 10 fold nested cross validation with various variable combinations
-par(mfrow=c(2,2))
-# try models of various sizes with CV
-for (i in 1:7){
-  cvTopGenes.sub = CVariableSelection.ReduceModel.getMinModel(oVar.sub, i)
-  dfData.train = data.frame(t(lData.train$data))
-  dfData.train = data.frame(dfData.train[,cvTopGenes.sub])
-  colnames(dfData.train) = cvTopGenes.sub
-  
-  oCV = CCrossValidation.LDA(test.dat = dfData.train, train.dat = dfData.train, test.groups = fGroups,
-                             train.groups = fGroups, level.predict = 'ATB', boot.num = 50)
-  
-  plot.cv.performance(oCV)
-  # print variable names and 95% confidence interval for AUC
-  temp = oCV@oAuc.cv
-  x = as.numeric(temp@y.values)
-  print(paste('Variable Count', i))
-  print(cvTopGenes.sub)
-  print(signif(quantile(x, probs = c(0.025, 0.975)), 2))
-}
+# ## 10 fold nested cross validation with various variable combinations
+# set.seed(123)
+# par(mfrow=c(2,2))
+# # try models of various sizes with CV
+# for (i in 1:7){
+#   cvTopGenes.sub = CVariableSelection.ReduceModel.getMinModel(oVar.sub, i)
+#   dfData.train = data.frame(t(lData.train$data))
+#   dfData.train = data.frame(dfData.train[,cvTopGenes.sub])
+#   colnames(dfData.train) = cvTopGenes.sub
+#   
+#   oCV = CCrossValidation.LDA(test.dat = dfData.train, train.dat = dfData.train, test.groups = fGroups,
+#                              train.groups = fGroups, level.predict = 'ATB', boot.num = 500)
+#   
+#   plot.cv.performance(oCV)
+#   # print variable names and 95% confidence interval for AUC
+#   temp = oCV@oAuc.cv
+#   x = as.numeric(temp@y.values)
+#   print(paste('Variable Count', i))
+#   print(cvTopGenes.sub)
+#   print(signif(quantile(x, probs = c(0.025, 0.975)), 2))
+# }
 
 ## choose the 1 variable model
-dfData = data.frame(t(lData.train$data))
+dfData.train = data.frame(t(lData.train$data))
 dfData = data.frame(dfData.train[,CVariableSelection.ReduceModel.getMinModel(oVar.sub, 1)])
 colnames(dfData) = CVariableSelection.ReduceModel.getMinModel(oVar.sub, 1)
 
@@ -125,7 +126,7 @@ dfData.train = data.frame(dfData.train[,cvTopGenes.sub])
 colnames(dfData.train) = cvTopGenes.sub
 
 oCV = CCrossValidation.LDA(test.dat = dfData.train, train.dat = dfData.train, test.groups = fGroups,
-                           train.groups = fGroups, level.predict = 'ATB', boot.num = 50)
+                           train.groups = fGroups, level.predict = 'ATB', boot.num = 500)
 
 plot.cv.performance(oCV)
 
